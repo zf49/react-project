@@ -16,7 +16,7 @@ export default function NewsSandBox() {
             <SideBar></SideBar>
 
 
-            <Layout className="site-layout">
+            <Layout className="site-layout" style={{height:"100vh"}}>
                 
                 <TopBar></TopBar>
 

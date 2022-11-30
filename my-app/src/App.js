@@ -6,17 +6,14 @@ import IndexRouter from './router/IndexRouter'
 
 function App() {
   return (
-  
-      <div>
-        <HashRouter>
-
-          <IndexRouter/>
-
-        </HashRouter>
-      </div>
  
+      <HashRouter>
 
-  
+         <IndexRouter/>
+
+      </HashRouter>
+
+
   );
 }
 
