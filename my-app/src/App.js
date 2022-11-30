@@ -1,17 +1,20 @@
 
 
+
 import {HashRouter} from 'react-router-dom'
 import IndexRouter from './router/IndexRouter'
 
 function App() {
   return (
   
+      <div>
+        <HashRouter>
 
-    <HashRouter>
-      
-       <IndexRouter/>
+          <IndexRouter/>
 
-    </HashRouter>
+        </HashRouter>
+      </div>
+ 
 
   
   );

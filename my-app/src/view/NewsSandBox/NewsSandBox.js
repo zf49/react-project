@@ -3,15 +3,39 @@ import SideBar from '../../component/sandbox/SideBar'
 import TopBar from '../../component/sandbox/TopBar'
 
 import { Outlet } from 'react-router-dom'
+import './NewSandBox.css'
+
+
+import { Layout, Menu} from 'antd';
+let {Content} = Layout
 
 export default function NewsSandBox() {
     return (
-        <div>
+        <Layout>
 
             <SideBar></SideBar>
-            <TopBar></TopBar>
-            <Outlet/>
 
-        </div>
+
+            <Layout className="site-layout">
+                
+                <TopBar></TopBar>
+
+                <Content
+                className="site-layout-background"
+                style={{
+                margin: '24px 16px',
+                padding: 24,
+                minHeight: 280,
+                }}
+            >
+                <Outlet/>
+            </Content>
+
+            </Layout>
+        </Layout>
+
+           
+
+     
     )
 }
