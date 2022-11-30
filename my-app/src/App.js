@@ -1,12 +1,19 @@
-const { default: IndexRouter } = require("./router/IndexRouter");
+
+
+import {HashRouter} from 'react-router-dom'
+import IndexRouter from './router/IndexRouter'
 
 function App() {
   return (
-   <div>
+  
 
-    <IndexRouter></IndexRouter>
+    <HashRouter>
+      
+       <IndexRouter/>
 
-   </div>
+    </HashRouter>
+
+  
   );
 }
 
