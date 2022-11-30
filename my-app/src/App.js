@@ -1,22 +1,10 @@
-import './App.css'
-
-const { default: Child } = require("./Child");
-
-
+const { default: IndexRouter } = require("./router/IndexRouter");
 
 function App() {
   return (
    <div>
 
-      <ul>
-      <li>11111</li>
-      <li>22222</li>
-      </ul>
-
-
-
-      <Child></Child>
-
+    <IndexRouter></IndexRouter>
 
    </div>
   );
