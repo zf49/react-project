@@ -110,20 +110,21 @@ export default function SideBar(props) {
 
       };
 
-      let location =  useLocation()
-      const selectKeys = [location.pathname]
-      const openKeys = ["/"+location.pathname.split("/")[1]]
+      // let location =  useLocation()
+      // const selectKeys = [location.pathname]
+      // const openKeys = ["/"+location.pathname.split("/")[1]]
       
     return (
-        <Sider trigger={null} collapsible collapsed={false} width={300} >
+        <Sider trigger={null} collapsible collapsed={false} width={300}
+        >
           <div>
             <div className="logo">Golbal News Admin System</div>
             <div>
                   <Menu 
-                    defaultOpenKeys={openKeys}
+                    // defaultOpenKeys={openKeys}
                     theme="dark"
                     mode="inline"
-                    defaultSelectedKeys={selectKeys}
+                    // selectedKeys={selectKeys}
                     items={menu}
                     onClick={onClick}
                   />
