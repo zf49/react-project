@@ -6,10 +6,29 @@ import { useNavigate } from 'react-router-dom'
 import { Layout, Menu } from 'antd';
 import {
     AppstoreOutlined, MailOutlined, SettingOutlined,
-    HomeOutlined
+    HomeOutlined,
+    UserOutlined ,
+    AuditOutlined ,
+    SafetyCertificateOutlined,
+    BookOutlined,
+    FileTextOutlined
   } from '@ant-design/icons';
 
 const {  Sider } = Layout;
+
+
+const iconList = {
+  "Home":<HomeOutlined />,
+  "User Management":<UserOutlined />,
+  "Right Management":<SafetyCertificateOutlined />,
+  "News Management":<BookOutlined />,
+  "Audit Management":<AuditOutlined />,
+  "Publish Management":<FileTextOutlined />,
+}
+
+
+
+
 
 export default function SideBar() {
 
@@ -28,14 +47,11 @@ export default function SideBar() {
     const navigate = useNavigate()
 
     const [menu, setMenu] = useState([])
-    const items = [];
-    const itemChildren = undefined
 
+    // check the option whether can render on menu, there is a field name "pagepermisson". if pagepermisson is 1, the option will render on sidemenu
     const checkPermission = (children)=>{
-
       const newChild = []
       children.map((item)=>{
-        
           if (item.pagepermisson === 1){
             newChild.push(item)
           }
@@ -46,17 +62,15 @@ export default function SideBar() {
     useEffect(() => {
       
       axios.get("http://localhost:8000/rights?_embed=children").then(res=>{
-        console.log(res.data)
-          
+        // console.log(res.data)
+        const items = [];
         res.data.map((item)=>{
 
               if(item.children.length===0){
-                items.push(getItem(item.label,item.key,null,undefined))
+                items.push(getItem(item.label,item.key,iconList[item.label],undefined))
               }else{
-                items.push(getItem(item.label,item.key,item.icon,checkPermission(item.children)))
+                items.push(getItem(item.label,item.key,iconList[item.label],checkPermission(item.children)))
               }
-            
-
           
         })
         setMenu(items)
@@ -65,10 +79,6 @@ export default function SideBar() {
       })
 
     }, [])
-
-      
-    
-
 
     const onClick = (e) => {
         // the value e return
