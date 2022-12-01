@@ -33,18 +33,19 @@ export default function IndexRouter() {
                     element:<RoleList/>
                 },
                 {
-                    path:"right-manage/auth/list",
+                    path:"right-manage/right/list",
                     element:<AuthList/>
+                },
+                {
+                    path:'*',
+                    element:<NotFound/>
                 }
+
             ]
         },
         {
             path:'/login',
             element:<Login/>
-        },
-        {
-            path:'*',
-            element:<NotFound/>
         }
     ]) 
 

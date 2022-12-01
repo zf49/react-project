@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './index.css'
 import axios from'axios'
-import ReactHtmlParser from 'html-react-parser';
-import { useNavigate } from 'react-router-dom'
+
+import { useNavigate,useLocation,useParams } from 'react-router-dom'
 import { Layout, Menu } from 'antd';
 import {
     AppstoreOutlined, MailOutlined, SettingOutlined,
@@ -30,8 +30,7 @@ const iconList = {
 
 
 
-export default function SideBar() {
-
+export default function SideBar(props) {
 
   function getItem(label, key, icon, children, type) {
     return {
@@ -42,6 +41,8 @@ export default function SideBar() {
       type,
     };
   }
+
+  // use
 
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate()
@@ -107,22 +108,27 @@ export default function SideBar() {
         navigate(e.key)
         
 
-
       };
 
+      let location =  useLocation()
+      const selectKeys = [location.pathname]
+      const openKeys = ["/"+location.pathname.split("/")[1]]
+      
     return (
         <Sider trigger={null} collapsible collapsed={false} width={300} >
-        <div className="logo">Golbal News Admin System</div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          items={menu}
-          onClick={onClick}
-
-        //   defaultOpenKeys={['sub1']}
-          
-        />
+          <div>
+            <div className="logo">Golbal News Admin System</div>
+            <div>
+                  <Menu 
+                    defaultOpenKeys={openKeys}
+                    theme="dark"
+                    mode="inline"
+                    defaultSelectedKeys={selectKeys}
+                    items={menu}
+                    onClick={onClick}
+                  />
+            </div>
+          </div>
       </Sider>
     )
 }
