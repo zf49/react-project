@@ -40,7 +40,6 @@ export default function IndexRouter() {
                     path:'*',
                     element:<NotFound/>
                 }
-
             ]
         },
         {
@@ -49,9 +48,6 @@ export default function IndexRouter() {
         }
     ]) 
 
-
-
-    
     return (
             <>
               {element}

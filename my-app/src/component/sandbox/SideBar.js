@@ -32,22 +32,21 @@ const iconList = {
 
 export default function SideBar(props) {
 
-  function getItem(label, key, icon, children, type) {
-    return {
-      key,
-      icon,
-      children,
-      label,
-      type,
-    };
-  }
+    function getItem(label, key, icon, children, type) {
+      return {
+        key,
+        icon,
+        children,
+        label,
+        type,
+      };
+    }
 
-  // use
+    //TODO use redux 
 
     const [collapsed, setCollapsed] = useState(false);
-    const navigate = useNavigate()
-
-    const [menu, setMenu] = useState([])
+    const navigate = useNavigate();
+    const [menu, setMenu] = useState([]);
 
     // check the option whether can render on menu, there is a field name "pagepermisson". if pagepermisson is 1, the option will render on sidemenu
     const checkPermission = (children)=>{
@@ -103,7 +102,7 @@ export default function SideBar(props) {
         // : 
         // Object
 
-        console.log('click ', e.key);
+        console.log('click ', e);
         
         navigate(e.key)
         
@@ -121,10 +120,9 @@ export default function SideBar(props) {
             <div className="logo">Golbal News Admin System</div>
             <div>
                   <Menu 
-                    // defaultOpenKeys={openKeys}
                     theme="dark"
                     mode="inline"
-                    // selectedKeys={selectKeys}
+                    defaultSelectedKeys={'/home'}
                     items={menu}
                     onClick={onClick}
                   />
