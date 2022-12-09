@@ -2,8 +2,29 @@ import React, { useState,useEffect } from 'react'
 import axios from'axios'
 
 
-import { Table,Tag,Button } from 'antd';
-import{ DeleteOutlined,EditOutlined} from '@ant-design/icons'
+import { Table,Tag,Button,Modal,Space } from 'antd';
+import{ DeleteOutlined,EditOutlined,ExclamationCircleFilled} from '@ant-design/icons'
+
+const { confirm } = Modal;
+
+const showConfirm = () => {
+    confirm({
+      title: 'Delete',
+      icon: <ExclamationCircleFilled />,
+      content: 'Do you Want to delete this items?',
+      onOk() {
+          // TODO delete the Auth 
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
+
+
+
+
 export default function AuthList() {
 
     useEffect(() => {
@@ -20,7 +41,6 @@ export default function AuthList() {
 
     const [dataSource, setDataSource] = useState([])
 
-      
       const columns = [
         {
           title: 'ID',
@@ -43,23 +63,25 @@ export default function AuthList() {
         {
             title:"OPERTATION",
             render:()=>{
-                return <div>
-                    <Button danger shape="circle" icon={<DeleteOutlined />}></Button>
+                return <Space wrap>
+                    <Button danger shape="circle" icon={<DeleteOutlined />} onClick={()=>{
+                        showConfirm()
+                        
+                    }}></Button>
                     <Button type="primary" shape="circle" icon={<EditOutlined />}></Button>
                     
-                </div>
+                </Space>
             }
         }
       ];
-      
+
+
     return (
         <div>
-        
         
         <Table dataSource={dataSource} columns={columns} pagination={{
             pageSize:15
         }}/>;
-
 
         </div>
     )
