@@ -7,20 +7,7 @@ import{ DeleteOutlined,EditOutlined,ExclamationCircleFilled} from '@ant-design/i
 
 const { confirm } = Modal;
 
-const showConfirm = () => {
-    confirm({
-      title: 'Delete',
-      icon: <ExclamationCircleFilled />,
-      content: 'Do you Want to delete this items?',
-      onOk() {
-          // TODO delete the Auth 
-        console.log('OK');
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
-  };
+
 
 
 
@@ -37,6 +24,26 @@ export default function AuthList() {
         })
     }, [])
 
+
+    const showConfirm = (item) => {
+        confirm({
+          title: 'Delete',
+          icon: <ExclamationCircleFilled />,
+          content: 'Do you Want to delete this items?',
+          onOk() {
+              // TODO delete the Auth 
+            console.log('OK');
+            deletemethod(item)
+          },
+          onCancel() {
+            console.log('Cancel');
+          },
+        });
+      };
+
+    const deletemethod = (item)=>{
+            console.log(item)
+    }   
 
 
     const [dataSource, setDataSource] = useState([])
@@ -62,13 +69,13 @@ export default function AuthList() {
         },
         {
             title:"OPERTATION",
-            render:()=>{
+            render:(item)=>{
                 return <Space wrap>
                     <Button danger shape="circle" icon={<DeleteOutlined />} onClick={()=>{
-                        showConfirm()
+                        showConfirm(item)
                         
                     }}></Button>
-                    <Button type="primary" shape="circle" icon={<EditOutlined />}></Button>
+                    <Button type="primary" shape="circle" icon={<EditOutlined />} ></Button>
                     
                 </Space>
             }
