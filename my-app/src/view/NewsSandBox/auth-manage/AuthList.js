@@ -7,8 +7,12 @@ import{ DeleteOutlined,EditOutlined} from '@ant-design/icons'
 export default function AuthList() {
 
     useEffect(() => {
-        axios.get("http://localhost:8000/rights").then(res=>{
-            setDataSource(res.data)
+        axios.get("http://localhost:8000/rights?_embed=children").then(res=>{
+
+            const list = res.data
+            list[0].children = ""
+
+            setDataSource(list)
         })
     }, [])
 
@@ -52,7 +56,9 @@ export default function AuthList() {
         <div>
         
         
-        <Table dataSource={dataSource} columns={columns}/>;
+        <Table dataSource={dataSource} columns={columns} pagination={{
+            pageSize:15
+        }}/>;
 
 
         </div>
