@@ -73,9 +73,10 @@ export default function AuthList() {
                 return <Space wrap>
                     <Button danger shape="circle" icon={<DeleteOutlined />} onClick={()=>{
                         showConfirm(item)
-                        
                     }}></Button>
-                    <Button type="primary" shape="circle" icon={<EditOutlined />} ></Button>
+                    <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={()=>{
+                            console.log("Test")
+                    }}></Button>
                     
                 </Space>
             }
