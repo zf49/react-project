@@ -75,14 +75,13 @@ export default function AuthList() {
                         showConfirm(item)
                     }}></Button>
                     <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={()=>{
-                            console.log("Test")
+                        console.log("Test123123123")
+                        
                     }}></Button>
-                    
                 </Space>
             }
         }
       ];
-
 
     return (
         <div>
