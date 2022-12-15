@@ -330,7 +330,7 @@
     },
     {
       "id": 27,
-      "label": "Off-line",
+      "label": "Sunset",
       "rightId": 24,
       "key": "/publish-manage/sunset",
       "pagepermisson": 1,

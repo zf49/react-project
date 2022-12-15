@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react'
 import axios from'axios'
 
 
-import { Table,Tag,Button,Modal,Space } from 'antd';
+import { Table,Tag,Button,Modal,Space ,Popover,Switch} from 'antd';
 import{ DeleteOutlined,EditOutlined,ExclamationCircleFilled} from '@ant-design/icons'
 
 const { confirm } = Modal;
@@ -46,21 +46,64 @@ export default function AuthList() {
       };
 
     const deletemethod = (item)=>{
-            // TODO delete the Auth 
+            // TODO delete the Auth: check  level 
 
-            console.log(item)
+            // console.log(item)
 
-            setDataSource(dataSource.filter((data)=>{
-             return data.id!==item.id 
-            }))
+            if(item.grade === 1){
+                setDataSource(dataSource.filter((data)=>{
+                    return data.id!==item.id 
+                }))
+       
+                axios.delete(`http://localhost:8000/rights/${item.id}`)
+       
+            }else{
 
-            axios.delete(`http://localhost:8000/rights/${item.id}`)
+                console.log(item.rightId)
+                
 
+                let list = dataSource.filter(data=>data.id===item.rightId)
+
+                console.log(list)
+
+                list[0].children = list[0].children.filter(data=>data.id!==item.id)
+
+                setDataSource([...dataSource])
+                axios.delete(`http://localhost:8000/children/${item.id}`)
+
+
+            }
+
+
+
+            
 
     }   
 
 
     const [dataSource, setDataSource] = useState([])
+
+
+    let swithcMethod = (item)=>{
+        item.pagepermisson = item.pagepermisson===1?0:1
+
+        setDataSource([...dataSource])
+
+        if(item.grde ===1){
+            axios.patch(`http://localhost:8000/rights/${item.id}`,{
+                pagepermisson:item.pagepermisson
+            })
+        }else{
+            axios.patch(`http://localhost:8000/children/${item.id}`,{
+                pagepermisson:item.pagepermisson
+            })
+        }        
+
+    }
+
+
+
+
 
       const columns = [
         {
@@ -88,10 +131,24 @@ export default function AuthList() {
                     <Button danger shape="circle" icon={<DeleteOutlined />} onClick={()=>{
                         showConfirm(item)
                     }}></Button>
-                    <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={()=>{
-                        console.log("Test123123123")
-                        
-                    }}></Button>
+
+
+                    <Popover content={
+                        <div style={{
+                            textAlign:'center'
+                        }}>
+                            <Switch checked={
+                                item.pagepermisson
+                            } onChange={
+                                ()=>{swithcMethod(item)}
+                            }></Switch>
+                        </div>
+                    } title="Edit" trigger={item.pagepermisson === undefined?'':'click'}> 
+                        <Button type="primary" shape="circle" icon={<EditOutlined />} disabled={
+                            item.pagepermisson === undefined
+                        }></Button>
+                    </Popover>
+                   
                 </Space>
             }
         }
