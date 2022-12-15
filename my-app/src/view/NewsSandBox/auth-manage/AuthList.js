@@ -18,7 +18,12 @@ export default function AuthList() {
         axios.get("http://localhost:8000/rights?_embed=children").then(res=>{
 
             const list = res.data
-            list[0].children = ""
+            
+            list.forEach(element => {
+                if(element.children.length===0){
+                    element.children=""
+                }
+            });
 
             setDataSource(list)
         })
@@ -31,7 +36,6 @@ export default function AuthList() {
           icon: <ExclamationCircleFilled />,
           content: 'Do you Want to delete this items?',
           onOk() {
-              // TODO delete the Auth 
             console.log('OK');
             deletemethod(item)
           },
@@ -42,7 +46,17 @@ export default function AuthList() {
       };
 
     const deletemethod = (item)=>{
+            // TODO delete the Auth 
+
             console.log(item)
+
+            setDataSource(dataSource.filter((data)=>{
+             return data.id!==item.id 
+            }))
+
+            axios.delete(`http://localhost:8000/rights/${item.id}`)
+
+
     }   
 
 
