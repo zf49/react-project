@@ -71,13 +71,7 @@ export default function AuthList() {
                 setDataSource([...dataSource])
                 axios.delete(`http://localhost:8000/children/${item.id}`)
 
-
             }
-
-
-
-            
-
     }   
 
 
