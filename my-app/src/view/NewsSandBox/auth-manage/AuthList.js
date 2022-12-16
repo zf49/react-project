@@ -34,7 +34,7 @@ export default function AuthList() {
         confirm({
           title: 'Delete',
           icon: <ExclamationCircleFilled />,
-          content: 'Do you Want to delete this items?',
+          content: 'Do you Want to delete this item?',
           onOk() {
             console.log('OK');
             deletemethod(item)
@@ -46,8 +46,7 @@ export default function AuthList() {
       };
 
     const deletemethod = (item)=>{
-            // TODO delete the Auth: check  level 
-
+          
             // console.log(item)
 
             if(item.grade === 1){

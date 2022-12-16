@@ -179,6 +179,7 @@
     {
       "id": 3,
       "label": "Add User",
+      "title": "Add User",
       "rightId": 2,
       "key": "/user-manage/add",
       "grade": 2
@@ -186,6 +187,7 @@
     {
       "id": 4,
       "label": "Delete User",
+      "title": "Delete User",
       "rightId": 2,
       "key": "/user-manage/delete",
       "grade": 2
@@ -193,6 +195,7 @@
     {
       "id": 5,
       "label": "Update User",
+      "title": "Update User",
       "rightId": 2,
       "key": "/user-manage/update",
       "grade": 2
@@ -200,6 +203,7 @@
     {
       "id": 6,
       "label": "User List",
+      "title": "User List",
       "rightId": 2,
       "key": "/user-manage/list",
       "pagepermisson": 1,
@@ -208,6 +212,7 @@
     {
       "id": 8,
       "label": "Role List",
+      "title": "Role List",
       "rightId": 7,
       "key": "/right-manage/role/list",
       "pagepermisson": 1,
@@ -216,6 +221,7 @@
     {
       "id": 9,
       "label": "Right List",
+      "title": "Right List",
       "rightId": 7,
       "key": "/right-manage/right/list",
       "pagepermisson": 1,
@@ -224,6 +230,7 @@
     {
       "id": 10,
       "label": "Update Role",
+      "title": "Update Role",
       "rightId": 7,
       "key": "/right-manage/role/update",
       "grade": 2
@@ -231,6 +238,7 @@
     {
       "id": 11,
       "label": "Delete Role",
+      "title": "Delete Role",
       "rightId": 7,
       "key": "/right-manage/role/delete",
       "grade": 2
@@ -238,6 +246,7 @@
     {
       "id": 12,
       "label": "Update Right",
+      "title": "Update Right",
       "rightId": 7,
       "key": "/right-manage/right/update",
       "grade": 2
@@ -245,6 +254,7 @@
     {
       "id": 13,
       "label": "Delete Right",
+      "title": "Delete Right",
       "rightId": 7,
       "key": "/right-manage/right/delete",
       "grade": 2
@@ -252,6 +262,7 @@
     {
       "id": 15,
       "label": "News List",
+      "title": "News List",
       "rightId": 14,
       "key": "/news-manage/list",
       "grade": 2
@@ -259,6 +270,7 @@
     {
       "id": 16,
       "label": "Write News",
+      "title": "Write News",
       "rightId": 14,
       "key": "/news-manage/add",
       "grade": 2,
@@ -267,6 +279,7 @@
     {
       "id": 17,
       "label": "Update News",
+      "title": "Update News",
       "rightId": 14,
       "key": "/news-manage/update/:id",
       "grade": 2,
@@ -275,6 +288,7 @@
     {
       "id": 18,
       "label": "News Overview",
+      "title": "News Overview",
       "rightId": 14,
       "key": "/news-manage/preview/:id",
       "grade": 2,
@@ -283,6 +297,7 @@
     {
       "id": 19,
       "label": "Drafts",
+      "title": "Drafts",
       "rightId": 14,
       "key": "/news-manage/draft",
       "pagepermisson": 1,
@@ -291,6 +306,7 @@
     {
       "id": 20,
       "label": "News Category",
+      "title": "News Category",
       "rightId": 14,
       "key": "/news-manage/category",
       "pagepermisson": 1,
@@ -299,6 +315,7 @@
     {
       "id": 22,
       "label": "Audit News",
+      "title": "Audit News",
       "rightId": 21,
       "key": "/audit-manage/audit",
       "pagepermisson": 1,
@@ -307,6 +324,7 @@
     {
       "id": 23,
       "label": "Audit List",
+      "title": "Audit List",
       "rightId": 21,
       "key": "/audit-manage/list",
       "pagepermisson": 1,
@@ -315,6 +333,7 @@
     {
       "id": 25,
       "label": "Unpublished News",
+      "title": "Unpublished News",
       "rightId": 24,
       "key": "/publish-manage/unpublished",
       "pagepermisson": 1,
@@ -323,6 +342,7 @@
     {
       "id": 26,
       "label": "Published News",
+      "title": "Published News",
       "rightId": 24,
       "key": "/publish-manage/published",
       "pagepermisson": 1,
@@ -331,6 +351,7 @@
     {
       "id": 27,
       "label": "Sunset",
+      "title": "Sunset",
       "rightId": 24,
       "key": "/publish-manage/sunset",
       "pagepermisson": 1,
@@ -341,6 +362,7 @@
     {
       "id": 1,
       "label": "Home",
+      "title": "Home",
       "key": "/home",
       "pagepermisson": 1,
       "grade": 1
@@ -348,6 +370,7 @@
     {
       "id": 2,
       "label": "User Management",
+      "title": "User Management",
       "key": "/user-manage",
       "pagepermisson": 1,
       "grade": 1
@@ -355,6 +378,7 @@
     {
       "id": 7,
       "label": "Right Management",
+      "title": "Right Management",
       "key": "/right-manage",
       "pagepermisson": 1,
       "grade": 1
@@ -362,6 +386,7 @@
     {
       "id": 14,
       "label": "News Management",
+      "title": "News Management",
       "key": "/news-manage",
       "pagepermisson": 1,
       "grade": 1
@@ -369,6 +394,7 @@
     {
       "id": 21,
       "label": "Audit Management",
+      "title": "Audit Management",
       "key": "/audit-manage",
       "pagepermisson": 1,
       "grade": 1
@@ -376,6 +402,7 @@
     {
       "id": 24,
       "label": "Publish Management",
+      "title": "Publish Management",
       "key": "/publish-manage",
       "pagepermisson": 1,
       "grade": 1
