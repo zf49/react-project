@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import axios from 'axios'
 
@@ -17,6 +17,9 @@ export default function UserList() {
     const [dataSource, setDataSource] = useState()
     const [roleList, setRoleList] = useState([])
     const [regionList, setRegionList] = useState([])
+
+    const addForm = useRef(null)
+
 
     useEffect(() => {
         
@@ -154,7 +157,7 @@ export default function UserList() {
               form
                 .validateFields()
                 .then((values) => {
-                    console.log(values)
+                    // console.log(values)
 
                   form.resetFields();
 
@@ -167,7 +170,7 @@ export default function UserList() {
             }}
           >
 
-          <Userform regionList={regionList} roleList = {roleList} form = {form} item={item}/>
+          <Userform allowClear regionList={regionList} roleList = {roleList} form = {form} item={item} ref={addForm}/>
 
           </Modal>
         );
@@ -233,10 +236,25 @@ export default function UserList() {
         setOpen(false);
       };
       
-      const onEdit = (values,id) => {
-        console.log('Received values of form: ', values,id);
+      const onEdit = (values,id)=>{
+        // console.log('Received values of form: ', values,id);
 
-        axios.patch(`http://localhost:8000/users/${id}`,{
+        // TODO fixed bug
+
+        console.log('Chnaged: ', values,id);
+
+        if(values.roleId
+            === 1){
+            values.region='Global'
+        }
+
+        // console.log(data)
+
+
+        
+
+
+       axios.patch(`http://localhost:8000/users/${id}`,{
             ...values
         }).then(res=>{   
            axios.get("http://localhost:8000/users?_expand=role").then(res=>setDataSource(res.data))

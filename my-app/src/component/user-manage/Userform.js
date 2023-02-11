@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 
 
 
@@ -7,15 +7,30 @@ import {Form, Input, Select} from 'antd';
 const { Option } = Select;
 
 
-export default function Userform({ form,regionList,roleList,item }) {
+  const Userform = ({ form,regionList,roleList,item}) => {
+
+
+
+  useEffect(() => {
+    form.setFieldsValue(item)
+
+    if(item?.roleId === 1){
+      setisDisable(true)
+      form.setFieldsValue({
+        region:""
+      })
+    }
+   
+}, [])
+
 
 
   const [isDisable, setisDisable] = useState(false)
 
-form.setFieldsValue(item)
 
     return (
         <Form
+       
         form={form}
         layout="vertical"
         name="form_in_modal"
@@ -57,6 +72,8 @@ form.setFieldsValue(item)
             message: 'Please select region!',
           }
         ]}>
+
+
           <Select 
           disabled={isDisable}
           placeholder="select your region"
@@ -69,21 +86,35 @@ form.setFieldsValue(item)
           </Select>
         </Form.Item>
 
-        <Form.Item name="roleId" label="Role"  rules={[
-    {
-      required: true,
-      message: 'Please select role!',
-    },
-  ]}>
+        <Form.Item 
+              name="roleId" 
+              label="Role"  
+              rules={[
+                  {
+                      required: true,
+                      message: 'Please select role!',
+                  },
+              ]}
+
+            
+        >
           <Select
           
-          onChange={(value)=>{
-            // console.log(value)
-            value==1?setisDisable(true):setisDisable(false)
-          }}
           placeholder="select your role"
 
-      
+          onChange={(value)=>{
+            
+            if(value === 1){
+              setisDisable(true)
+              form.setFieldsValue({
+                region:""
+              })
+            }else{
+              setisDisable(false)
+
+            }
+           
+          }}
           >
 
               {roleList.map(item=><Option value={item.id} key={item.id}>{item.roleName}</Option>)} 
@@ -97,3 +128,5 @@ form.setFieldsValue(item)
       </Form>
     )
 }
+
+export default Userform
