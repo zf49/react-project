@@ -64,22 +64,13 @@
       "id": 8
     },
     {
-      "username": "qwe",
-      "password": "asd",
-      "region": "North America",
-      "roleId": 2,
-      "roleState": true,
+      "username": "zzz",
+      "password": "zxc",
+      "region": "Africa",
+      "roleId": 3,
+      "roleState": false,
       "default": false,
       "id": 9
-    },
-    {
-      "username": "zxc",
-      "password": "asd",
-      "region": "South America",
-      "roleId": 2,
-      "roleState": true,
-      "default": false,
-      "id": 10
     }
   ],
   "roles": [

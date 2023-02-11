@@ -7,12 +7,15 @@ import {Form, Input, Select} from 'antd';
 const { Option } = Select;
 
 
-export default function Userform({ form,regionList,roleList }) {
+export default function Userform({ form,regionList,roleList,item }) {
 
+
+  let {username, password,region,role} ={...item}
   const [isDisable, setisDisable] = useState(false)
 
+//  console.log(role.roleName)
 
-
+ 
 
 
     return (
@@ -34,7 +37,10 @@ export default function Userform({ form,regionList,roleList }) {
             },
           ]}
         >
-          <Input />
+          <Input
+           defaultValue={typeof(username)!=undefined?username:''}
+            // value="123"
+           />
         </Form.Item>
 
         <Form.Item name="password" label="Password" rules={[
@@ -43,7 +49,7 @@ export default function Userform({ form,regionList,roleList }) {
               message: 'Please input password!',
             },
           ]}>
-          <Input.Password />
+          <Input.Password defaultValue={typeof(password)!=undefined?password:''}/>
         </Form.Item>
 
 
@@ -57,7 +63,9 @@ export default function Userform({ form,regionList,roleList }) {
         ]}>
           <Select 
           disabled={isDisable}
-          placeholder="select your region">
+          placeholder="select your region"
+          defaultValue={typeof(region)!=undefined?region:''}
+          >
 
               {regionList.map(item=><Option value={item.value} key={item.id}>{item.title}</Option>)} 
              
@@ -71,16 +79,17 @@ export default function Userform({ form,regionList,roleList }) {
       message: 'Please select role!',
     },
   ]}>
-          <Select 
-          onChange={(value)=>{
-            console.log(value)
-            
-            value==1?setisDisable(true):setisDisable(false)
-
-
-          }}
+          <Select
           
-          placeholder="select your role">
+          onChange={(value)=>{
+            // console.log(value)
+            value==1?setisDisable(true):setisDisable(false)
+          }}
+          placeholder="select your role"
+
+          defaultValue={typeof(role)!=undefined?role?.roleName:''}
+          
+          >
 
               {roleList.map(item=><Option value={item.id} key={item.id}>{item.roleName}</Option>)} 
              

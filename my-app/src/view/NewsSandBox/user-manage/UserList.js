@@ -92,13 +92,25 @@ export default function UserList() {
 
 
                     
-                        <Button type="primary" shape="circle" icon={<EditOutlined />} disabled={item.default}></Button>
+                        <Button type="primary" shape="circle" icon={<EditOutlined />} disabled={item.default} onClick={
+                            ()=>{
+                                handleEdit(item)
+                                
+                            }
+                        }></Button>
 
                    
                 </Space>
             }
         }
       ];
+
+
+      const handleEdit = (item)=>{
+        setEditOpen(true)
+        setEditItem(item)
+      }
+
 
 
 
@@ -128,12 +140,45 @@ export default function UserList() {
 
 
 
+      const CollectionEditForm = ({ open, onEdit, onCancel,item }) => {
+        const [form] = Form.useForm();
+        
+        // console.log(item)
+        return (
+          <Modal
+            open={open}
+            title="Change user Info"
+            okText="Chnage"
+            cancelText="Cancel"
+            onCancel={onCancel}
+            onOk={() => {
+
+                
+
+
+            //   form
+            //     .validateFields()
+            //     .then((values) => {
+            //       form.resetFields();
+            //       onEdit(values);
+            //     })
+            //     .catch((info) => {
+            //       console.log('Validate Failed:', info);
+            //     });
+            }}
+          >
+
+          <Userform regionList={regionList} roleList = {roleList} form = {form} item={item}/>
+
+          </Modal>
+        );
+      };
+
+
+
 
     const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
         const [form] = Form.useForm();
-      
- 
-
         return (
           <Modal
             open={open}
@@ -159,6 +204,10 @@ export default function UserList() {
       };
 
       const [open, setOpen] = useState(false);
+      const [editopen, setEditOpen] = useState(false);
+
+      const [editItem, setEditItem] = useState()
+
 
       const onCreate = (values) => {
         // console.log('Received values of form: ', values);
@@ -188,9 +237,34 @@ export default function UserList() {
         setOpen(false);
       };
       
+
+      const onEdit = (values) => {
+        console.log('Received values of form: ', values);
+
+    //     axios.patch(`http://localhost:8000/users/`,{
+    //         ...values
+    //     }).then(
+    //         res=>{
+    //            setDataSource([...dataSource,{
+    //                ...res.data,
+    //                role:roleList.filter(item=>item.id===values.roleId)[0]
+    //            }])
+    //   }
+            // axios.get("http://localhost:8000/users?_expand=role").then(res=>setDataSource(res.data))
+
+
+       
+        
+        // )
+        setOpen(false);
+      };
+
+
     return (
         <div>
             <Button type="primary" onClick={()=>{setOpen(true);}}>Add New User</Button>
+
+
             <CollectionCreateForm
                 open={open}
                 onCreate={onCreate}
@@ -199,7 +273,17 @@ export default function UserList() {
                 }} 
             />
          
+      
+         <CollectionEditForm
+                open={editopen}
+                onEdit={onEdit}
+                onCancel={() => {
+                setEditOpen(false)
+                }} 
 
+                item = {editItem}
+
+            />
 
 
             <Table columns={columns} dataSource={dataSource} 
