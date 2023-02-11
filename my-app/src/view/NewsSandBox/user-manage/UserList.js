@@ -142,8 +142,6 @@ export default function UserList() {
 
       const CollectionEditForm = ({ open, onEdit, onCancel,item }) => {
         const [form] = Form.useForm();
-        
-        // console.log(item)
         return (
           <Modal
             open={open}
@@ -153,18 +151,19 @@ export default function UserList() {
             onCancel={onCancel}
             onOk={() => {
 
-                
+              form
+                .validateFields()
+                .then((values) => {
+                    console.log(values)
 
+                  form.resetFields();
 
-            //   form
-            //     .validateFields()
-            //     .then((values) => {
-            //       form.resetFields();
-            //       onEdit(values);
-            //     })
-            //     .catch((info) => {
-            //       console.log('Validate Failed:', info);
-            //     });
+                  onEdit(values,item.id);
+
+                })
+                .catch((info) => {
+                  console.log('Validate Failed:', info);
+                });
             }}
           >
 
@@ -229,34 +228,24 @@ export default function UserList() {
                }])
       }
             // axios.get("http://localhost:8000/users?_expand=role").then(res=>setDataSource(res.data))
-
-
-       
         
         )
         setOpen(false);
       };
       
+      const onEdit = (values,id) => {
+        console.log('Received values of form: ', values,id);
 
-      const onEdit = (values) => {
-        console.log('Received values of form: ', values);
-
-    //     axios.patch(`http://localhost:8000/users/`,{
-    //         ...values
-    //     }).then(
-    //         res=>{
-    //            setDataSource([...dataSource,{
-    //                ...res.data,
-    //                role:roleList.filter(item=>item.id===values.roleId)[0]
-    //            }])
-    //   }
-            // axios.get("http://localhost:8000/users?_expand=role").then(res=>setDataSource(res.data))
+        axios.patch(`http://localhost:8000/users/${id}`,{
+            ...values
+        }).then(res=>{   
+           axios.get("http://localhost:8000/users?_expand=role").then(res=>setDataSource(res.data))
+            console.log(res.data) 
+        })
 
 
-       
-        
-        // )
-        setOpen(false);
+
+        setEditOpen(false);
       };
 
 

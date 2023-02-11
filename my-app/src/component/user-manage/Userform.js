@@ -10,13 +10,9 @@ const { Option } = Select;
 export default function Userform({ form,regionList,roleList,item }) {
 
 
-  let {username, password,region,role} ={...item}
   const [isDisable, setisDisable] = useState(false)
 
-//  console.log(role.roleName)
-
- 
-
+form.setFieldsValue(item)
 
     return (
         <Form
@@ -38,7 +34,7 @@ export default function Userform({ form,regionList,roleList,item }) {
           ]}
         >
           <Input
-           defaultValue={typeof(username)!=undefined?username:''}
+          //  defaultValue={typeof(username)!=undefined?username:''}
             // value="123"
            />
         </Form.Item>
@@ -49,7 +45,7 @@ export default function Userform({ form,regionList,roleList,item }) {
               message: 'Please input password!',
             },
           ]}>
-          <Input.Password defaultValue={typeof(password)!=undefined?password:''}/>
+          <Input.Password />
         </Form.Item>
 
 
@@ -64,7 +60,7 @@ export default function Userform({ form,regionList,roleList,item }) {
           <Select 
           disabled={isDisable}
           placeholder="select your region"
-          defaultValue={typeof(region)!=undefined?region:''}
+         
           >
 
               {regionList.map(item=><Option value={item.value} key={item.id}>{item.title}</Option>)} 
@@ -87,8 +83,7 @@ export default function Userform({ form,regionList,roleList,item }) {
           }}
           placeholder="select your role"
 
-          defaultValue={typeof(role)!=undefined?role?.roleName:''}
-          
+      
           >
 
               {roleList.map(item=><Option value={item.id} key={item.id}>{item.roleName}</Option>)} 

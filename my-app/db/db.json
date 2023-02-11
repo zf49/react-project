@@ -10,9 +10,9 @@
       "roleId": 1
     },
     {
-      "username": "钢蛋",
+      "username": "钢蛋1111",
       "password": "123",
-      "roleState": false,
+      "roleState": true,
       "default": false,
       "region": "Asian",
       "roleId": 2,
@@ -64,13 +64,22 @@
       "id": 8
     },
     {
-      "username": "zzz",
-      "password": "zxc",
-      "region": "Africa",
-      "roleId": 3,
-      "roleState": false,
+      "username": "test",
+      "password": "123",
+      "region": "Europe",
+      "roleId": 2,
+      "roleState": true,
       "default": false,
       "id": 9
+    },
+    {
+      "username": "edit",
+      "password": "edit",
+      "region": "Asian",
+      "roleId": 2,
+      "roleState": true,
+      "default": false,
+      "id": 10
     }
   ],
   "roles": [
