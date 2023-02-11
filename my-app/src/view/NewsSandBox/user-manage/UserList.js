@@ -4,26 +4,33 @@ import axios from 'axios'
 
 import { Table,Tag,Modal,Space ,Popover,Switch, Button, Checkbox, Form, Input,Radio, Select} from 'antd';
 import{ DeleteOutlined,EditOutlined,ExclamationCircleFilled} from '@ant-design/icons'
+
+import Userform from '../../../component/user-manage/Userform';
 const { Option } = Select;
 
 
 
 export default function UserList() {
     const { confirm } = Modal;
-
+    const [loading, setloading] = useState(false)
 
     const [dataSource, setDataSource] = useState()
+    const [roleList, setRoleList] = useState([])
+    const [regionList, setRegionList] = useState([])
 
     useEffect(() => {
+        
         axios.get("http://localhost:8000/users?_expand=role").then(res=>setDataSource(res.data))
+
         },[])
 
-        const [region, setRegion] = useState()
-        useEffect(() => {
-           axios.get('http://localhost:8000/regions').then(res=>setRegion(res.data))
+    useEffect(() => {
+           axios.get('http://localhost:8000/regions').then(res=>setRegionList(res.data))
         }, [])
 
-
+    useEffect(() => {
+            axios.get("http://localhost:8000/roles").then(res=>setRoleList(res.data))
+        },[])
         
 
     const columns = [
@@ -39,9 +46,9 @@ export default function UserList() {
         {
         title: 'Auth Name',
           dataIndex: 'role',
-          key:'roleId',
+          key:'role',
           render:(role)=>{
-           return <span>{role.roleName}</span>
+           return <span>{role?.roleName}</span>
           }
         },
         {
@@ -55,11 +62,22 @@ export default function UserList() {
           key: 'roleState',
           render:(roleState,item)=>{
             
-                const changeState = ()=>{
+            let checked = roleState
+           
+            const onChange = (checked) => {
+                // console.log(`switch to ${checked}`,item.id);
 
-                }
+                checked = !checked
 
-              return <Switch checked={roleState} disabled={item.default} onChange={changeState}></Switch>
+                axios.patch(`http://localhost:8000/users/${item.id}`,{
+                    "roleState":!roleState
+                })
+
+        
+              };
+                
+
+              return <Switch defaultChecked={checked} loading={loading} disabled={item.default} onChange={onChange}></Switch>
 
 
           }
@@ -91,73 +109,27 @@ export default function UserList() {
           content: 'Do you Want to delete this users?',
           onOk() {
             console.log('OK');
-            deletemethod(item)
+            
+            setDataSource(dataSource.filter(data=>data.id!=item.id))
+
+
+
+            axios.delete(`http://localhost:8000/users/${item.id}`).then(res=>{
+                console.log(res.data)
+            })
+
+
           },
           onCancel() {
             console.log('Cancel');
           },
         });
-      };
-
-    const deletemethod = (item)=>{
-          
-           // TODO change it to Users
-
-            if(item.grade === 1){
-                setDataSource(dataSource.filter((data)=>{
-                    return data.id!==item.id 
-                }))
-       
-                axios.delete(`http://localhost:8000/rights/${item.id}`)
-       
-            }else{
-
-                console.log(item.rightId)
-                
-
-                let list = dataSource.filter(data=>data.id===item.rightId)
-
-                console.log(list)
-
-                list[0].children = list[0].children.filter(data=>data.id!==item.id)
-
-                setDataSource([...dataSource])
-                axios.delete(`http://localhost:8000/children/${item.id}`)
-
-            }
-    }   
-
-
-
-    let swithcMethod = (item)=>{
-        item.pagepermisson = item.pagepermisson===1?0:1
-
-        setDataSource([...dataSource])
-
-        if(item.grde ===1){
-            axios.patch(`http://localhost:8000/rights/${item.id}`,{
-                pagepermisson:item.pagepermisson
-            })
-        }else{
-            axios.patch(`http://localhost:8000/children/${item.id}`,{
-                pagepermisson:item.pagepermisson
-            })
-        }        
-
-    }
-
-    
-    const addNewUser = ()=>{
-
-       // TODO add new USer
-
-
-    }
+      }
 
 
 
 
-    const CollectionCreateForm = ({ open, onCreate, onCancel,region }) => {
+    const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
         const [form] = Form.useForm();
       
  
@@ -170,63 +142,49 @@ export default function UserList() {
             cancelText="Cancel"
             onCancel={onCancel}
             onOk={() => {
-              // TODO 添加用户
-
-
+              form
+                .validateFields()
+                .then((values) => {
+                  form.resetFields();
+                  onCreate(values);
+                })
+                .catch((info) => {
+                  console.log('Validate Failed:', info);
+                });
             }}
           >
-            <Form
-              form={form}
-              layout="vertical"
-              name="form_in_modal"
-              initialValues={{
-                modifier: 'public',
-              }}
-            >
-              <Form.Item
-                name="Username"
-                label="Username"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input user name!',
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item name="pwd" label="Password" rules={[
-                  {
-                    required: true,
-                    message: 'Please input password!',
-                  },
-                ]}>
-                <Input.Password />
-              </Form.Item>
-
-
-              <Form.Item name="region" label="Region"  rules={[
-          {
-            required: true,
-            message: 'Please select region!',
-          },
-        ]}>
-                <Select placeholder="select your region">
-
-                    {region?.map((item)=>{return  <Option value={item.value}>{item.title}</Option>})}  
-                   
-                   
-                </Select>
-              </Form.Item>
-            </Form>
+          <Userform regionList={regionList} roleList = {roleList} form = {form}/>
           </Modal>
         );
       };
 
       const [open, setOpen] = useState(false);
+
       const onCreate = (values) => {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
+
+        // TODO post to backend
+        if(values.roleId
+            === 1){
+            values.region='Global'
+        }
+        axios.post(`http://localhost:8000/users`,{
+            ...values,
+            'roleState':true,
+            'default':false  
+        }).then(
+            res=>{
+               setDataSource([...dataSource,{
+                   ...res.data,
+                   role:roleList.filter(item=>item.id===values.roleId)[0]
+               }])
+      }
+            // axios.get("http://localhost:8000/users?_expand=role").then(res=>setDataSource(res.data))
+
+
+       
+        
+        )
         setOpen(false);
       };
       
@@ -239,14 +197,12 @@ export default function UserList() {
                 onCancel={() => {
                 setOpen(false);
                 }} 
-
-                region = {region}
             />
          
 
 
 
-            <Table columns={columns} dataSource={dataSource} pagination={{pageSize:5}}
+            <Table columns={columns} dataSource={dataSource} 
             rowKey={item=>item.id}/>
         </div>
     )
