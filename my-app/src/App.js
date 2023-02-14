@@ -1,6 +1,6 @@
 
 
-
+import './App.css'
 import {HashRouter} from 'react-router-dom'
 import IndexRouter from './router/IndexRouter'
 

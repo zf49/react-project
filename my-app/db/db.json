@@ -722,7 +722,7 @@
     {
       "username": "司马海味",
       "password": "123",
-      "roleState": false,
+      "roleState": true,
       "default": false,
       "region": "Asian",
       "roleId": 3,
@@ -731,7 +731,7 @@
     {
       "username": "咕噜墩子",
       "password": "123",
-      "roleState": false,
+      "roleState": true,
       "default": false,
       "region": "Asian",
       "roleId": 3,

@@ -1,39 +1,53 @@
-import React, { useState } from 'react'
+
+import React, { useEffect, useState } from 'react'
+import {useNavigate} from 'react-router-dom';
+
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  DownOutlined, 
-  SmileOutlined,
 } from '@ant-design/icons';
-
-
-
 
 
 import { Layout, Menu,Dropdown, Space ,Avatar } from 'antd';
 const { Header, Sider, Content } = Layout;
 
-export default function TopBar() {
+
+
+export default function TopBar(props) {
+
+  const navigate = useNavigate();
+
+
 
     const [collapsed, setCollapsed] = useState(false)
 
     let changeCollapse = ()=>{
             setCollapsed(!collapsed)
     }
-            
+
+    const [name, setName] = useState('')
+
+
+      useEffect(() => {
+       setName(localStorage.getItem('token'))
+      }, [])
+
 
     const items = [
         {
           key: '1',
-          label: "111"
+          label: name
         },
         {
             key: '4',
             danger: true,
-            label: 'a danger item',
+            label: 'Login Out',
+            onClick: ()=>{
+              console.log(props)
+              localStorage.removeItem("token")
+              navigate('/login')
+            } 
           },
       ];
 
@@ -78,3 +92,11 @@ export default function TopBar() {
       </Header>
     )
 }
+
+
+
+
+
+
+
+

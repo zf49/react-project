@@ -157,7 +157,6 @@ export default function UserList() {
               form
                 .validateFields()
                 .then((values) => {
-                    // console.log(values)
 
                   form.resetFields();
 
@@ -212,9 +211,6 @@ export default function UserList() {
 
 
       const onCreate = (values) => {
-        // console.log('Received values of form: ', values);
-
-        // TODO post to backend
         if(values.roleId
             === 1){
             values.region='Global'
@@ -237,9 +233,6 @@ export default function UserList() {
       };
       
       const onEdit = (values,id)=>{
-        // console.log('Received values of form: ', values,id);
-
-        // TODO fixed bug
 
         console.log('Chnaged: ', values,id);
 
@@ -247,12 +240,6 @@ export default function UserList() {
             === 1){
             values.region='Global'
         }
-
-        // console.log(data)
-
-
-        
-
 
        axios.patch(`http://localhost:8000/users/${id}`,{
             ...values
